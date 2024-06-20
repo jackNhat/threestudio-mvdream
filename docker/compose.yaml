@@ -12,9 +12,12 @@ services:
       shm_size: '4gb'
     environment:
       NVIDIA_DISABLE_REQUIRE: 1  # avoid wrong `nvidia-container-cli: requirement error`
+      USER_UID: ${UID:-1000}
+      USER_GID: ${GID:-1000}
     tty: true
     volumes:
         - ../:/home/${HOST_USER_NAME:-dreamer}/threestudio
+        - ../huggingface_cache:/home/${HOST_USER_NAME:-dreamer}/.cache/huggingface/hub
     deploy:
       resources:
         reservations:
